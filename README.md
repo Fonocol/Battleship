@@ -9,4 +9,4 @@ On peut utiliser des techniques mathématiques pour optimiser la stratégie de t
 Le jeu se poursuit jusqu'à ce que tous les navires d'un joueur soient coulés. Le gagnant est celui qui parvient à couler tous les navires de son adversaire en effectuant un nombre minimal de tirs.
 
 # Demo
-![](images/FON.png)
+![img](images/FON.PNG)
