@@ -3,12 +3,10 @@
 
 int main()
 {
-    PlayerInfo player1;
-    PlayerInfo player2;
+    BATTLESHIP battaille;
 
     srand(time(NULL));
-    creat_player(&player1,&player2);
-    run(&player1,&player2);
+    creat_player(&battaille);
     
     return 0;
 }
