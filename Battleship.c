@@ -385,11 +385,22 @@ void creat_player(BATTLESHIP *battaille){
         printf("donner un nom a votre partie:\n");
         scanf("%s",battaille->name);
 
+        battaille->currentplayer = humain;
+        battaille->PointPlayer1 = Zero;
+        battaille->PointPlayer2 =Zero;
+
+
         printf("Nom du joueur 1 :\n");
         scanf("%s",battaille->player1.nom);
         printf("age du joueur 1 :\n");
         scanf("%d",&battaille->player1.age);
 
+        if (mode == 0){
+            battaille->Mode = 0;
+        }else{
+            battaille->Mode = 1;
+        }
+             
 
         if (humainoumachine == humain)
         {
@@ -555,6 +566,55 @@ void run(BATTLESHIP *battaille){
         system("cls");
 
     }
+
+    if (winplayer_i(battaille->player2))   //le player un gagne
+    {
+        printf("%s a gagner",battaille->player1.nom);
+        Sleep(1500);
+        battaille->PointPlayer1 = battaille->PointPlayer1+1;
+    }else
+    {
+        printf("%s a gagner",battaille->player2.nom);
+        Sleep(1500);
+        battaille->PointPlayer2 = battaille->PointPlayer2+1;
+    }
+
+
+    if (battaille->enemy == humain)
+    {
+        if (battaille->Mode == 0)
+        {
+            generate_sceen(battaille->player1.matrice,0);
+            generate_sceen(battaille->player2.matrice,0);
+        }else
+        {
+            printf("remplissage player 1\n");
+            generate_sceen(battaille->player1.matrice,1);
+            printf("remplissage player 2\n");
+            generate_sceen(battaille->player2.matrice,1);
+        }
+    }else
+    {
+        generate_sceen(battaille->player2.matrice,0);
+        if (battaille->Mode == 0)
+        {
+            generate_sceen(battaille->player1.matrice,0);
+            
+        }else
+        {
+            printf("remplissage player 1\n");
+            generate_sceen(battaille->player1.matrice,1);
+        }
+    
+    }
+
+
+    Empty(battaille->player1.Print);
+    Empty(battaille->player2.Print);
+    savepartie("data",battaille);
+    run(battaille);
+    
+    
     
 
 }
@@ -571,8 +631,11 @@ void savepartie(char *folderPath,const BATTLESHIP *battaille) {
         fprintf(file, "NomPlayer1 : %s\n", battaille->player1.nom);
         fprintf(file, "NomPlayer2 : %s\n", battaille->player2.nom);
         fprintf(file, "AgePlayer1 : %d\n", battaille->player1.age);
-        fprintf(file, "AgePlayer2 : %d\n", battaille->player2.age);        
+        fprintf(file, "AgePlayer2 : %d\n", battaille->player2.age);
+        fprintf(file, "PointPlayer1 : %d\n", battaille->PointPlayer1);
+        fprintf(file, "PointPlayer2 : %d\n", battaille->PointPlayer2);       
         fprintf(file, "joueurCourant : %d\n", battaille->currentplayer);
+        fprintf(file, "Mode : %d\n", battaille->Mode);
         fprintf(file, "Enemies : %d\n", battaille->enemy);
 
         for (int i = 0; i < SIZE; i++) {;
@@ -603,8 +666,11 @@ int loadpartie(const char *folderPath, const char *gameName, BATTLESHIP *battail
         fscanf(file, "NomPlayer1 : %s\n", battaille->player1.nom);
         fscanf(file, "NomPlayer2 : %s\n", battaille->player2.nom);
         fscanf(file, "AgePlayer1 : %d\n", &battaille->player1.age);
-        fscanf(file, "AgePlayer2 : %d\n", &battaille->player2.age);        
+        fscanf(file, "AgePlayer2 : %d\n", &battaille->player2.age);
+        fscanf(file, "PointPlayer1 : %d\n", &battaille->PointPlayer1);
+        fscanf(file, "PointPlayer2 : %d\n", &battaille->PointPlayer2);          
         fscanf(file, "joueurCourant : %d\n", &battaille->currentplayer);
+        fscanf(file, "Mode : %d\n", &battaille->Mode);
         fscanf(file, "Enemies : %d\n", &battaille->enemy);
 
 

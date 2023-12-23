@@ -7,6 +7,7 @@
 #define SIZE 10
 #define WATHER 0
 #define Nbr 8
+#define Zero 0
 
 typedef enum navir{
     Torpilleur=2,
@@ -37,7 +38,10 @@ typedef struct PlayerInfo{
 typedef struct BATTLESHIP{
     char name[50];
     int enemy;
+    int Mode;
     int currentplayer;
+    int PointPlayer1;
+    int PointPlayer2;
     PlayerInfo player1;
     PlayerInfo player2;
 }BATTLESHIP;
